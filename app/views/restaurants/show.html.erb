@@ -1,0 +1,25 @@
+<div class="container mt-5">
+  <div class="card">
+    <h2 class="text-center"> <%= @restaurant.name %></h2>
+    <p>Address: <%= @restaurant.address %></p>
+    <p>Category: <%= @restaurant.category %></p>
+    <p>Phone: <%= @restaurant.phone_number %></p>
+  </div>
+  <br>
+
+  <% number = 0 %>
+  <%  @restaurant.reviews.each do |review| %>
+    <p> <strong>Review(<%=number += 1%>):</strong> <%= review.content  %> <small> <%='🌟' * review.rating%></small></p>
+    <% end %>
+  <br>
+
+  <%= simple_form_for [ @restaurant, @review ] do |f| %>
+    <%= f.input :content %>
+    <%= f.input :rating, input_html: { min: '0', max: '5' } %>
+    <%= f.submit "Submit review", class: "btn btn-primary d-inline" %>
+     <%= link_to 'Edit Restaurant', edit_restaurant_path(@restaurant), class: 'btn btn-success' %>
+  <%= link_to 'Back', restaurants_path, class: 'btn btn-primary' %>
+  <% end %>
+
+
+</div>
